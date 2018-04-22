@@ -1,0 +1,13 @@
+x<-read.table("exdata_data_household_power_consumption/household_power_consumption.txt",sep = ";",header = TRUE)
+x$Date<-as.Date(x$Date,"%d/%m/%Y")
+y<-x[((x$Date=="2007-02-01")|(x$Date=="2007-02-02")),]
+par(mar=c(4,4,2,1),cex.lab=0.8,cex.axis=0.8)
+plot(as.numeric(as.character(y$Sub_metering_1)),type="l",ylab = "Global Active Power (kilowatts)",xlab="",xaxt="n")
+lines(as.numeric(as.character(y$Sub_metering_2)),col="red")
+lines(as.numeric(as.character(y$Sub_metering_3)),col="blue")
+c<-c(1,nrow(y)/2,nrow(y))
+b<-c("Thu","Fri","Sat")
+axis(1,c,b)
+legend("topright",lty=1,col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_,metering_2"))
+dev.copy(png,file="plot3.png",width=480,height=480)
+dev.off()
